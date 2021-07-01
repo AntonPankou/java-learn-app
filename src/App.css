@@ -1,0 +1,32 @@
+.container {
+  width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.container__from-wrapper {
+  display: flex;
+  margin-top: 20px;
+}
+
+.container__inputs-wrapper {
+  display: flex;
+}
+
+.form__input-wrapper {
+  margin: 20px;
+}
+
+.container__button-wrapper {
+  margin-right: 390px;
+  margin-top: 15px;
+}
