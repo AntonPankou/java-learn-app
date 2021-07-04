@@ -7,13 +7,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <div>
-          <LoginPage />
-        </div> */}
-        <Route>
+        <MainPage />
+        {/* <Route>
           <LoginPage exact path='/loginPage' /> 
-        </Route>
-        <Route path='/mainPage'>
+        </Route> */}
+        <Route exact path='/mainPage'>
           <MainPage />
         </Route>
       </Switch>

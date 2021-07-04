@@ -30,3 +30,14 @@
   margin-right: 390px;
   margin-top: 15px;
 }
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5% 5% 0 5%;
+}
+
+.table-container {
+  padding: 5% 5% 0 5%;
+}

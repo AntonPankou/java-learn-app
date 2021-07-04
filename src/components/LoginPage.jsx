@@ -32,7 +32,7 @@ export class LoginPage extends React.Component {
             <div className='container'>
                 <div className='container__title-wrapper'>
                     <Typography variant="h3">
-                        Login To the Help Desk
+                        Login to the Help Desk
                     </Typography>
                 </div>
                 <div className='container__from-wrapper'>
