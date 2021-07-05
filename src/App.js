@@ -1,6 +1,7 @@
 import './App.css';
 import { LoginPage } from './components/LoginPage';
 import { MainPage } from './components/MainPage';
+import TicketsTable from './components/TicketsTable';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -11,9 +12,12 @@ function App() {
         {/* <Route>
           <LoginPage exact path='/loginPage' /> 
         </Route> */}
-        <Route exact path='/mainPage'>
+        {/* <Route exact path='/mainPage'>
           <MainPage />
-        </Route>
+        </Route> */}
+        {/* <Route>
+          <TicketsTable />
+        </Route> */}
       </Switch>
     </Router>
   );

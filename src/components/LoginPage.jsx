@@ -31,7 +31,7 @@ export class LoginPage extends React.Component {
         return (
             <div className='container'>
                 <div className='container__title-wrapper'>
-                    <Typography variant="h3">
+                    <Typography component="h2" variant="h3">
                         Login to the Help Desk
                     </Typography>
                 </div>
