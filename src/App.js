@@ -1,14 +1,16 @@
-import './App.css';
-import { LoginPage } from './components/LoginPage';
-import { MainPage } from './components/MainPage';
-import TicketsTable from './components/TicketsTable';
+import "./App.css";
+import { LoginPage } from "./components/LoginPage";
+import { MainPage } from "./components/MainPage";
+import TicketsTable from "./components/TicketsTable";
+import TicketInfo from "./components/TicketInfo";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <MainPage />
+        <TicketInfo />
+        {/* <MainPage /> */}
         {/* <Route>
           <LoginPage exact path='/loginPage' /> 
         </Route> */}

@@ -41,3 +41,20 @@
 .table-container {
   padding: 5% 5% 0 5%;
 }
+
+.ticket-data-container__title {
+  padding: 5% 5% 0 5%;
+}
+
+.ticket-data-container__info {
+  margin: 30px 0 0 5%;
+  width: 600px;
+}
+
+.ticket-line {
+  display: flex;
+}
+
+.ticket-table {
+  width: 600px;
+}
