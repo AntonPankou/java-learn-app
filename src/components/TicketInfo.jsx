@@ -1,6 +1,11 @@
 import React from "react";
+import TabPanel from "./TabPanel";
 import {
+  AppBar,
+  Button,
   Paper,
+  Tab,
+  Tabs,
   Table,
   TableBody,
   TableCell,
@@ -9,11 +14,19 @@ import {
   Typography,
 } from "@material-ui/core";
 
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
+
 class TicketInfo extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      tabValue: 0,
       ticketData: {
         id: 42,
         name: "Something",
@@ -31,6 +44,12 @@ class TicketInfo extends React.Component {
     };
   }
 
+  handleTabChange = (event, value) => {
+    this.setState({
+      tabValue: value,
+    });
+  };
+
   render() {
     const {
       approver,
@@ -47,15 +66,17 @@ class TicketInfo extends React.Component {
       description,
     } = this.state.ticketData;
 
+    const { tabValue } = this.state;
+
     return (
       <div className="ticket-data-container">
+        <div className={"ticket-data-container__back-button back-button"}>
+          <Button variant="contained">Ticket list</Button>
+        </div>
         <div className="ticket-data-container__title">
           <Typography variant="h4">{`Ticket(${id}) - ${name}`}</Typography>
         </div>
         <div className="ticket-data-container__info">
-          {/* <div className='ticket-line'>
-            <Typography variant="subtitle1">Created on:</Typography><Typography variant="subtitle2">{date.toLocaleDateString()}</Typography>
-          </div> */}
           <TableContainer className="ticket-table" component={Paper}>
             <Table>
               <TableBody>
@@ -182,6 +203,26 @@ class TicketInfo extends React.Component {
               </TableBody>
             </Table>
           </TableContainer>
+        </div>
+        <div className="ticket-data-container__comments-section comments-section">
+          <div className="">
+            <Tabs
+              variant="fullWidth"
+              onChange={this.handleTabChange}
+              value={tabValue}
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <Tab label="History" {...a11yProps(0)} />
+              <Tab label="Comments" {...a11yProps(1)} />
+            </Tabs>
+            <TabPanel>
+                
+            </TabPanel>
+            <TabPanel>
+
+            </TabPanel>
+          </div>
         </div>
       </div>
     );
