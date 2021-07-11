@@ -22,8 +22,7 @@ export class LoginPage extends React.Component {
     }
 
     handleSubmitClick = (event) => {
-        this.setState({ isLoggedIn: true });
-        console.log(this.state);
+        this.setState({ isLoggedIn: true });        
     }
 
     render() {

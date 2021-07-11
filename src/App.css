@@ -70,3 +70,21 @@
 .ticket-data-container__back-button {
   margin: 30px 0 0 6%;
 }
+
+.ticket-data-container__enter-comment-section {
+  margin: 30px 0 50px 6%;
+}
+
+.comment-text-field {
+  width: 600px;
+}
+
+.enter-comment-section__add-comment-button {
+  margin-top: 20px;
+}
+
+.ticket-creation-form-container__title {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}

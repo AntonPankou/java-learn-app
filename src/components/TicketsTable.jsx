@@ -45,7 +45,6 @@ class TicketsTable extends React.Component {
     const { page, rowsPerPage } = this.state;
     const handleChangePage = this.handleChangePage;
     const handleChangeRowsPerPage = this.handleChangeRowsPerPage;
-    console.log(this.props);
 
     return (
       <Paper>
@@ -68,8 +67,6 @@ class TicketsTable extends React.Component {
                     <TableRow hover role="checkbox" key={index}>
                       {columns.map((column) => {
                         const value = row[column.id];
-                        //
-                        console.log(column.id);
                         return column.id === "name" ? (
                           <TableCell key={column.id}>
                             <Link to={`/${value}`}>{value}</Link>

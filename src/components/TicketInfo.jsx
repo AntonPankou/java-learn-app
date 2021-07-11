@@ -1,7 +1,8 @@
 import React from "react";
 import TabPanel from "./TabPanel";
+import HistoryTable from "./HistoryTable";
+import CommentsTable from "./CommentsTable";
 import {
-  AppBar,
   Button,
   Paper,
   Tab,
@@ -12,6 +13,7 @@ import {
   TableContainer,
   TableRow,
   Typography,
+  TextField,
 } from "@material-ui/core";
 
 function a11yProps(index) {
@@ -21,12 +23,71 @@ function a11yProps(index) {
   };
 }
 
+const comments = [
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Ella Fitzgerald",
+    comment: "Cry me a river",
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Sarah Vaughn",
+    comment: "DJ Eban",
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Aretha Franklin",
+    comment: `I'm about to give you all of my money
+    And all I'm askin' in return, honey
+    Is to give me my propers when you get home`,
+  },
+];
+
+const history = [
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Miles Davis",
+    action: "Played on trumpet",
+    description: "So what",
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    user: "John Coltrain",
+    action: "Played on saxophone",
+    description: "Flamenco sketch",
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Bill Evans",
+    action: "Played on piano",
+    description: `Ah, distinctly I remember it was in the bleak December;
+      And each separate dying ember wrought its ghost upon the floor.
+          Eagerly I wished the morrow;—vainly I had sought to borrow
+          From my books surcease of sorrow—sorrow for the lost Lenore—
+      For the rare and radiant maiden whom the angels name Lenore—
+                  Nameless here for evermore.`,
+  },
+  {
+    date: new Date().toLocaleDateString(),
+    user: "Cannonball Adderley",
+    action: "Played on saxosphone",
+    description: "..",
+  },
+];
+
 class TicketInfo extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      commentValue: "",
       tabValue: 0,
+      ticketComments: comments,
+      ticketHistory: history,
+      currentUser: {
+        name: "Dave Brubeck",
+        id: 4242,
+      },
       ticketData: {
         id: 42,
         name: "Something",
@@ -50,6 +111,24 @@ class TicketInfo extends React.Component {
     });
   };
 
+  handleEnterComment = (event) => {
+    this.setState({
+      commentValue: event.target.value,
+    });
+  };
+
+  addComment = () => {
+    const newComment = {
+      date: new Date().toLocaleDateString(),
+      user: this.state.currentUser.name,
+      comment: this.state.commentValue,
+    };
+    this.setState({
+      ticketComments: [...this.state.ticketComments, newComment],
+      commentValue: "",
+    });
+  };
+
   render() {
     const {
       approver,
@@ -66,7 +145,8 @@ class TicketInfo extends React.Component {
       description,
     } = this.state.ticketData;
 
-    const { tabValue } = this.state;
+    const { commentValue, tabValue, ticketComments, ticketHistory } =
+      this.state;
 
     return (
       <div className="ticket-data-container">
@@ -216,12 +296,32 @@ class TicketInfo extends React.Component {
               <Tab label="History" {...a11yProps(0)} />
               <Tab label="Comments" {...a11yProps(1)} />
             </Tabs>
-            <TabPanel>
-                
+            <TabPanel value={tabValue} index={0}>
+              <HistoryTable history={ticketHistory} />
             </TabPanel>
-            <TabPanel>
-
+            <TabPanel value={tabValue} index={1}>
+              <CommentsTable comments={ticketComments} />
             </TabPanel>
+          </div>
+        </div>
+        <div className="ticket-data-container__enter-comment-section enter-comment-section">
+          <TextField
+            label="Enter a comment"
+            multiline
+            rows={4}
+            value={commentValue}
+            variant="filled"
+            className="comment-text-field"
+            onChange={this.handleEnterComment}
+          />
+          <div className="enter-comment-section__add-comment-button">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.addComment}
+            >
+              Add Comment
+            </Button>
           </div>
         </div>
       </div>
