@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const categoriesOptions = [
   { label: "Application & Service", value: 1 },
@@ -26,7 +26,7 @@ const urgencyOptions = [
   { value: "low", label: "Low" },
 ];
 
-class TicketCreationFrom extends React.Component {
+class TicketCreationPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,6 +39,10 @@ class TicketCreationFrom extends React.Component {
       attachmentValue: "",
       commentValue: "",
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props.match);
   }
 
   handleCategoryChange = (event) => {
@@ -89,7 +93,6 @@ class TicketCreationFrom extends React.Component {
 
   handleSubmitTicket = () => {
     console.log("Submit");
-    console.log(this.state);
   };
 
   render() {
@@ -100,6 +103,8 @@ class TicketCreationFrom extends React.Component {
       descriptionValue,
       urgencyValue,
     } = this.state;
+
+    console.log(this.props.match);
 
     return (
       <div className="ticket-creation-form-container">
@@ -250,4 +255,6 @@ class TicketCreationFrom extends React.Component {
   }
 }
 
-export default TicketCreationFrom;
+const TicketCreationPageWithRouter = withRouter(TicketCreationPage);
+
+export default TicketCreationPageWithRouter;

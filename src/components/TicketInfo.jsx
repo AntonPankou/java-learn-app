@@ -337,7 +337,7 @@ class TicketInfo extends React.Component {
               </Button>
               <Button
                 component={Link}
-                to={"/create-ticket"}
+                to={`/create-ticket/${id}`}
                 onClick={handleEditTicket}
               >
                 Edit
