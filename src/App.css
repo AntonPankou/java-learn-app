@@ -88,3 +88,55 @@
   justify-content: center;
   margin-top: 30px;
 }
+
+.ticket-creation-form-container__navigation-container {
+  margin: 30px 30px;
+}
+
+.inputs-section {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.inputs-section-attachment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticket-creation-form-container__form {
+  margin-top: 30px;
+}
+
+.inputs-section__ticket-creation-input {
+  margin: 0 20px 0 20px;
+}
+
+.ticket-creation-form-container__inputs-section {
+}
+
+.ticket-creation-input_width200 {
+  width: 200px;
+}
+
+.creation-text-field {
+}
+
+.creation-text-field_width680 {
+  width: 680px;
+}
+
+.submit-button-section {
+  margin: auto;
+  display: flex;
+  width: 450px;
+  justify-content: space-around;
+}
+
+.ticket-data-container__button-section {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 50px 6%;
+  width: 600px;
+}

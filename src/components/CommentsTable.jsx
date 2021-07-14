@@ -16,39 +16,37 @@ const tableColumns = [
   { id: "comment", label: "Comment" },
 ];
 
-class CommentsTable extends React.Component {
-  render() {
-    const { comments } = this.props;
+function CommentsTable(props) {
+  const { comments } = props;
 
-    return (
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {tableColumns.map((item) => {
-                return (
-                  <TableCell key={item.id} align="center">
-                    <Typography variant="h6">{item.label}</Typography>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {comments.map((item, index) => {
+  return (
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {tableColumns.map((item) => {
               return (
-                <TableRow key={index}>
-                  <TableCell align="center">{item.date}</TableCell>
-                  <TableCell align="center">{item.user}</TableCell>
-                  <TableCell align="center">{item.comment}</TableCell>
-                </TableRow>
+                <TableCell key={item.id} align="center">
+                  <Typography variant="h6">{item.label}</Typography>
+                </TableCell>
               );
             })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {comments.map((item, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell align="center">{item.date}</TableCell>
+                <TableCell align="center">{item.user}</TableCell>
+                <TableCell align="center">{item.comment}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
 
 export default CommentsTable;

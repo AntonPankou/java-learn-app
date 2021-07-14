@@ -1,5 +1,7 @@
 import React from "react";
 import {
+  ButtonGroup,
+  Button,
   Paper,
   Table,
   TableBody,
@@ -10,14 +12,15 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 const columns = [
-  { id: "id", label: "ID" },
-  { id: "name", label: "Name" },
-  { id: "date", label: "Desired Date" },
-  { id: "urgency", label: "Urgency" },
-  { id: "status", label: "Status" },
-  { id: "action", label: "Action" },
+  { id: "id", label: "ID", align: "left" },
+  { id: "name", label: "Name", align: "left" },
+  { id: "date", label: "Desired Date", align: "left" },
+  { id: "urgency", label: "Urgency", align: "left" },
+  { id: "status", label: "Status", align: "left" },
+  { id: "action", label: "Action", align: "center" },
 ];
 
 class TicketsTable extends React.Component {
@@ -40,11 +43,24 @@ class TicketsTable extends React.Component {
     });
   };
 
+  handleCancelSubmit = () => {
+    console.log("Cancel submit");
+  };
+
+  handleSubmitTicket = () => {
+    console.log("Submit ticket");
+  };
+
   render() {
     const { tickets } = this.props;
     const { page, rowsPerPage } = this.state;
-    const handleChangePage = this.handleChangePage;
-    const handleChangeRowsPerPage = this.handleChangeRowsPerPage;
+    const { url } = this.props.match;
+    const {
+      handleChangePage,
+      handleChangeRowsPerPage,
+      handleCancelSubmit,
+      handleSubmitTicket,
+    } = this;
 
     return (
       <Paper>
@@ -53,7 +69,7 @@ class TicketsTable extends React.Component {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell key={column.id}>
+                  <TableCell align={column.align} key={column.id}>
                     <b>{column.label}</b>
                   </TableCell>
                 ))}
@@ -67,13 +83,39 @@ class TicketsTable extends React.Component {
                     <TableRow hover role="checkbox" key={index}>
                       {columns.map((column) => {
                         const value = row[column.id];
-                        return column.id === "name" ? (
-                          <TableCell key={column.id}>
-                            <Link to={`/${value}`}>{value}</Link>
-                          </TableCell>
-                        ) : (
-                          <TableCell key={column.id}>{value}</TableCell>
-                        );
+                        if (column.id === "name") {
+                          return (
+                            <TableCell key={column.id}>
+                              <Link to={`${url}/${row.id}`}>{value}</Link>
+                            </TableCell>
+                          );
+                        }
+                        if (column.id === "action") {
+                          return row.status === "draft" ? (
+                            <TableCell align="center" key={column.id}>
+                              <ButtonGroup>
+                                <Button
+                                  onClick={handleCancelSubmit}
+                                  variant="contained"
+                                  color="secondary"
+                                >
+                                  Cancel
+                                </Button>
+                                <Button
+                                  onClick={handleSubmitTicket}
+                                  variant="contained"
+                                  color="primary"
+                                >
+                                  Submit
+                                </Button>
+                              </ButtonGroup>
+                            </TableCell>
+                          ) : (
+                            <TableCell key={column.id}></TableCell>
+                          );
+                        } else {
+                          return <TableCell key={column.id}>{value}</TableCell>;
+                        }
                       })}
                     </TableRow>
                   );
@@ -95,4 +137,5 @@ class TicketsTable extends React.Component {
   }
 }
 
-export default TicketsTable;
+const TicketsTableWithRouter = withRouter(TicketsTable);
+export default TicketsTableWithRouter;

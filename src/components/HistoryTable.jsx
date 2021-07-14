@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import { useRouteMatch } from "react-router-dom";
 
 const tableColumns = [
   { id: "date", label: "Date" },
@@ -17,40 +18,38 @@ const tableColumns = [
   { id: "description", label: "Description" },
 ];
 
-class HistoryTable extends React.Component {
-  render() {
-    const { history } = this.props;
+function HistoryTable(props) {
+  const { history } = props;
 
-    return (
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {tableColumns.map((item) => {
-                return (
-                  <TableCell key={item.id} align="center">
-                    <Typography variant="h6">{item.label}</Typography>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {history.map((item, index) => {
+  return (
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {tableColumns.map((item) => {
               return (
-                <TableRow key={index}>
-                  <TableCell align="center">{item.date}</TableCell>
-                  <TableCell align="center">{item.user}</TableCell>
-                  <TableCell align="center">{item.action}</TableCell>
-                  <TableCell align="left">{item.description}</TableCell>
-                </TableRow>
+                <TableCell key={item.id} align="center">
+                  <Typography variant="h6">{item.label}</Typography>
+                </TableCell>
               );
             })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {history.map((item, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell align="center">{item.date}</TableCell>
+                <TableCell align="center">{item.user}</TableCell>
+                <TableCell align="center">{item.action}</TableCell>
+                <TableCell align="left">{item.description}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
 
 export default HistoryTable;

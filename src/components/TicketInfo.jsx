@@ -2,8 +2,13 @@ import React from "react";
 import TabPanel from "./TabPanel";
 import HistoryTable from "./HistoryTable";
 import CommentsTable from "./CommentsTable";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
+import { ALL_TICKETS } from "../constants/mockTickets";
+
 import {
   Button,
+  ButtonGroup,
   Paper,
   Tab,
   Tabs,
@@ -105,6 +110,24 @@ class TicketInfo extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { ticketId } = this.props.match.params;
+    const ticket = ALL_TICKETS.find((item) => item.id === +ticketId);
+    this.setState({
+      ticketData: {
+        ...this.state.ticketData,
+        id: ticket.id,
+        date: ticket.date,
+        name: ticket.name,
+        status: ticket.status,
+        urgency: ticket.urgency,
+        action: ticket.action,
+        category: ticket.category,
+        ticketOwner: ticket.ticketOwner,
+      },
+    });
+  }
+
   handleTabChange = (event, value) => {
     this.setState({
       tabValue: value,
@@ -129,6 +152,20 @@ class TicketInfo extends React.Component {
     });
   };
 
+  handleSubmitTicket = () => {
+    // set ticket status to 'submitted'
+    console.log("SUBMIT ticket");
+  };
+
+  handleEditTicket = () => {
+    console.log("EDIT ticket");
+  };
+
+  handleCancelTicket = () => {
+    // set ticket status to 'canceled status'
+    console.log("CANCEL ticket");
+  };
+
   render() {
     const {
       approver,
@@ -148,10 +185,14 @@ class TicketInfo extends React.Component {
     const { commentValue, tabValue, ticketComments, ticketHistory } =
       this.state;
 
+    const { handleCancelTicket, handleEditTicket, handleSubmitTicket } = this;
+
     return (
       <div className="ticket-data-container">
         <div className={"ticket-data-container__back-button back-button"}>
-          <Button variant="contained">Ticket list</Button>
+          <Button component={Link} to="/main-page" variant="contained">
+            Ticket list
+          </Button>
         </div>
         <div className="ticket-data-container__title">
           <Typography variant="h4">{`Ticket(${id}) - ${name}`}</Typography>
@@ -168,7 +209,7 @@ class TicketInfo extends React.Component {
                   </TableCell>
                   <TableCell>
                     <Typography align="left" variant="subtitle1">
-                      {date.toLocaleDateString()}
+                      {new Date(date).toLocaleDateString()}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -284,6 +325,33 @@ class TicketInfo extends React.Component {
             </Table>
           </TableContainer>
         </div>
+        {status === "draft" && (
+          <div className="ticket-data-container__button-section">
+            <ButtonGroup variant="contained" color="primary">
+              <Button
+                component={Link}
+                to="/main-page"
+                onClick={handleSubmitTicket}
+              >
+                Submit
+              </Button>
+              <Button
+                component={Link}
+                to={"/create-ticket"}
+                onClick={handleEditTicket}
+              >
+                Edit
+              </Button>
+              <Button
+                component={Link}
+                to="/main-page"
+                onClick={handleCancelTicket}
+              >
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </div>
+        )}
         <div className="ticket-data-container__comments-section comments-section">
           <div className="">
             <Tabs
@@ -304,29 +372,32 @@ class TicketInfo extends React.Component {
             </TabPanel>
           </div>
         </div>
-        <div className="ticket-data-container__enter-comment-section enter-comment-section">
-          <TextField
-            label="Enter a comment"
-            multiline
-            rows={4}
-            value={commentValue}
-            variant="filled"
-            className="comment-text-field"
-            onChange={this.handleEnterComment}
-          />
-          <div className="enter-comment-section__add-comment-button">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.addComment}
-            >
-              Add Comment
-            </Button>
+        {tabValue && (
+          <div className="ticket-data-container__enter-comment-section enter-comment-section">
+            <TextField
+              label="Enter a comment"
+              multiline
+              rows={4}
+              value={commentValue}
+              variant="filled"
+              className="comment-text-field"
+              onChange={this.handleEnterComment}
+            />
+            <div className="enter-comment-section__add-comment-button">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.addComment}
+              >
+                Add Comment
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
 
-export default TicketInfo;
+const TicketInfoWithRouter = withRouter(TicketInfo);
+export default TicketInfoWithRouter;
