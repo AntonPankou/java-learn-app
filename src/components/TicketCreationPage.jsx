@@ -42,7 +42,7 @@ class TicketCreationPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match);
+    console.log("props from did mount", this.props);
   }
 
   handleCategoryChange = (event) => {
@@ -104,7 +104,7 @@ class TicketCreationPage extends React.Component {
       urgencyValue,
     } = this.state;
 
-    console.log(this.props.match);
+    console.log("props from render", this.props);
 
     return (
       <div className="ticket-creation-form-container">
@@ -256,5 +256,4 @@ class TicketCreationPage extends React.Component {
 }
 
 const TicketCreationPageWithRouter = withRouter(TicketCreationPage);
-
 export default TicketCreationPageWithRouter;

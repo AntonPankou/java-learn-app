@@ -2,7 +2,7 @@ import "./App.css";
 import { LoginPage } from "./components/LoginPage";
 import MainPageWithRouter from "./components/MainPage";
 import TicketInfo from "./components/TicketInfo";
-import TicketCreationPage from "./components/TicketCreationPage";
+import TicketCreationPageWithRouter from "./components/TicketCreationPage";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -17,14 +17,11 @@ function App() {
           <MainPageWithRouter />
         </Route>
         <Route path="/create-ticket">
-          <TicketCreationPage />
+          <TicketCreationPageWithRouter />
         </Route>
-        <Route exact path="/ticket-info">
+        <Route exact path="/ticket-info/:ticketId">
           <TicketInfo />
         </Route>
-        {/* <Route>
-          <TicketsTable />
-        </Route> */}
       </Switch>
     </Router>
   );

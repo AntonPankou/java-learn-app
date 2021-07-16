@@ -6,6 +6,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import TicketInfoWithRouter from "./TicketInfo";
 import { ALL_TICKETS, MY_TICKETS } from "../constants/mockTickets";
+import TicketCreationPageWithRouter from "./TicketCreationPage";
 
 function a11yProps(index) {
   return {
