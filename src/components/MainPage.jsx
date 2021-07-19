@@ -1,7 +1,7 @@
 import React from "react";
 import TabPanel from "./TabPanel";
 import TicketsTable from "./TicketsTable";
-import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
+import { AppBar, Button, Tab, Tabs, TextField } from "@material-ui/core";
 import { Link, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import TicketInfoWithRouter from "./TicketInfo";
@@ -23,6 +23,7 @@ class MainPage extends React.Component {
       tabValue: 0,
       myTickets: MY_TICKETS,
       allTickets: ALL_TICKETS,
+      filteredTickets: [],
     };
   }
 
@@ -41,7 +42,7 @@ class MainPage extends React.Component {
   };
 
   render() {
-    const { allTickets, myTickets, tabValue } = this.state;
+    const { allTickets, filteredTickets, myTickets, tabValue } = this.state;
     const { path } = this.props.match;
 
     return (
@@ -68,6 +69,21 @@ class MainPage extends React.Component {
                 Logout
               </Button>
             </div>
+            {/* <div>
+              <TextField
+                id="filled-full-width"
+                label="Label"
+                style={{ margin: 8 }}
+                placeholder="Placeholder"
+                helperText="Full width!"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="filled"
+              />
+            </div> */}
             <div className="table-container">
               <AppBar position="static">
                 <Tabs
@@ -79,7 +95,11 @@ class MainPage extends React.Component {
                   <Tab label="All tickets" {...a11yProps(1)} />
                 </Tabs>
                 <TabPanel value={tabValue} index={0}>
-                  <TicketsTable tickets={myTickets} />
+                  <TicketsTable
+                    tickets={
+                      filteredTickets.length ? filteredTickets : myTickets
+                    }
+                  />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
                   <TicketsTable tickets={allTickets} />

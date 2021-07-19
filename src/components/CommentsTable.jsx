@@ -9,12 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-
-const tableColumns = [
-  { id: "date", label: "Date" },
-  { id: "user", label: "User" },
-  { id: "comment", label: "Comment" },
-];
+import { COMMENTS_TABLE_COLUMNS } from "../constants/tablesColumns";
 
 function CommentsTable(props) {
   const { comments } = props;
@@ -24,7 +19,7 @@ function CommentsTable(props) {
       <Table>
         <TableHead>
           <TableRow>
-            {tableColumns.map((item) => {
+            {COMMENTS_TABLE_COLUMNS.map((item) => {
               return (
                 <TableCell key={item.id} align="center">
                   <Typography variant="h6">{item.label}</Typography>

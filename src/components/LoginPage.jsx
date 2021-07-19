@@ -24,9 +24,14 @@ export class LoginPage extends React.Component {
   handleSubmitClick = (event) => {
     this.setState({ isLoggedIn: true });
   };
+
+  handleClickAuth = () => {
+    this.props.authCallback(true);
+  }
   
   render() {
-    const { isLoggedIn } = this.state;
+    console.log(this.props);
+    
     return (
       <div className="container">
         <div className="container__title-wrapper">
@@ -59,11 +64,12 @@ export class LoginPage extends React.Component {
         </div>
         <div className="container__button-wrapper">
           <Button
-            component={Link}
-            to="/main-page"
+            /* component={Link}
+            to="/main-page" */
             size="large"
             variant="contained"
             color="primary"
+            onClick={this.handleClickAuth}
           >
             Enter
           </Button>

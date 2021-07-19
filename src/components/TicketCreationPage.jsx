@@ -9,29 +9,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
-
-const categoriesOptions = [
-  { label: "Application & Service", value: 1 },
-  { label: "Benefits & Paper Work", value: 2 },
-  { label: "Hardware & Software", value: 3 },
-  { label: "People Management", value: 4 },
-  { label: "Security & Access", value: 5 },
-  { label: "Workplaces & Facilities", value: 6 },
-];
-
-const urgencyOptions = [
-  { value: "critical", label: "Critical" },
-  { value: "high", label: "High" },
-  { value: "average", label: "Average" },
-  { value: "low", label: "Low" },
-];
-
+import { ALL_TICKETS } from "../constants/mockTickets";
+import { CATEGORIES_OPTIONS, URGENCY_OPTIONS  } from "../constants/inputsValues";
 class TicketCreationPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      categoryValue: 4,
+      categoryValue: 'peopleManagement',
       nameValue: "",
       descriptionValue: "",
       urgencyValue: "critical",
@@ -42,7 +27,20 @@ class TicketCreationPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log("props from did mount", this.props);
+    const ticketFromUrl = this.props.location.pathname.split("/");
+    const ticketId = ticketFromUrl[ticketFromUrl.length - 1];
+    const ticketData = ALL_TICKETS.find((item) => item.id === +ticketId);
+
+    if (ticketData) {
+      this.setState({
+        nameValue: ticketData.name,
+        resolutionDateValue: ticketData.date,
+        commentValue: ticketData.comment,
+        descriptionValue: ticketData.description,
+        urgencyValue: ticketData.urgency,
+        categoryValue: ticketData.category
+      });
+    }
   }
 
   handleCategoryChange = (event) => {
@@ -97,10 +95,12 @@ class TicketCreationPage extends React.Component {
 
   render() {
     const {
+      nameValue,
       attachmentValue,
       categoryValue,
       commentValue,
       descriptionValue,
+      resolutionDateValue,
       urgencyValue,
     } = this.state;
 
@@ -128,6 +128,7 @@ class TicketCreationPage extends React.Component {
                   variant="outlined"
                   onChange={this.handleNameChange}
                   id="name-label"
+                  value={nameValue}
                 />
               </FormControl>
             </div>
@@ -145,7 +146,7 @@ class TicketCreationPage extends React.Component {
                     id: "category-label",
                   }}
                 >
-                  {categoriesOptions.map((item, index) => {
+                  {CATEGORIES_OPTIONS.map((item, index) => {
                     return (
                       <MenuItem value={item.value} key={index}>
                         {item.label}
@@ -170,7 +171,7 @@ class TicketCreationPage extends React.Component {
                     id: "urgency-label",
                   }}
                 >
-                  {urgencyOptions.map((item, index) => {
+                  {URGENCY_OPTIONS.map((item, index) => {
                     return (
                       <MenuItem value={item.value} key={index}>
                         {item.label}
@@ -192,6 +193,7 @@ class TicketCreationPage extends React.Component {
                   label="Desired resolution date"
                   type="date"
                   id="resolution-date"
+                  value={resolutionDateValue}
                   InputLabelProps={{
                     shrink: true,
                   }}

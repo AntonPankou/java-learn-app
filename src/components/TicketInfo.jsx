@@ -97,11 +97,11 @@ class TicketInfo extends React.Component {
       ticketData: {
         id: 42,
         name: "Something",
-        date: new Date(),
+        date: "2021-07-16",
         category: "Hardware & Software",
         status: "New",
         urgency: "High",
-        resolutionDate: new Date(2021, 10, 10),
+        resolutionDate: "",
         ticketOwner: "Robert Oppenheimer",
         approver: "",
         assignee: "",
@@ -119,6 +119,7 @@ class TicketInfo extends React.Component {
         ...this.state.ticketData,
         id: ticket.id,
         date: ticket.date,
+        resolutionDate: ticket.resolutionDate,
         name: ticket.name,
         status: ticket.status,
         urgency: ticket.urgency,
@@ -182,7 +183,7 @@ class TicketInfo extends React.Component {
       attachment,
       description,
     } = this.state.ticketData;
-
+    console.log(resolutionDate);
     const { commentValue, tabValue, ticketComments, ticketHistory } =
       this.state;
 
@@ -214,7 +215,7 @@ class TicketInfo extends React.Component {
                       </TableCell>
                       <TableCell>
                         <Typography align="left" variant="subtitle1">
-                          {new Date(date).toLocaleDateString()}
+                          {date}
                         </Typography>
                       </TableCell>
                     </TableRow>
@@ -262,7 +263,7 @@ class TicketInfo extends React.Component {
                       </TableCell>
                       <TableCell>
                         <Typography align="left" variant="subtitle1">
-                          {resolutionDate.toLocaleDateString()}
+                          {resolutionDate}
                         </Typography>
                       </TableCell>
                     </TableRow>

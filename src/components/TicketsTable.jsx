@@ -10,18 +10,11 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-
-const columns = [
-  { id: "id", label: "ID", align: "left" },
-  { id: "name", label: "Name", align: "left" },
-  { id: "date", label: "Desired Date", align: "left" },
-  { id: "urgency", label: "Urgency", align: "left" },
-  { id: "status", label: "Status", align: "left" },
-  { id: "action", label: "Action", align: "center" },
-];
+import { TICKETS_TABLE_COLUMNS } from "../constants/tablesColumns";
 
 class TicketsTable extends React.Component {
   constructor(props) {
@@ -68,11 +61,22 @@ class TicketsTable extends React.Component {
           <Table>
             <TableHead>
               <TableRow>
-                {columns.map((column) => (
+                {TICKETS_TABLE_COLUMNS.map((column) => (
                   <TableCell align={column.align} key={column.id}>
                     <b>{column.label}</b>
                   </TableCell>
                 ))}
+              </TableRow>
+              <TableRow>
+                <TextField
+                  label="Search"
+                  style={{ margin: 5 }}
+                  placeholder="Search ticket"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -81,7 +85,7 @@ class TicketsTable extends React.Component {
                 .map((row, index) => {
                   return (
                     <TableRow hover role="checkbox" key={index}>
-                      {columns.map((column) => {
+                      {TICKETS_TABLE_COLUMNS.map((column) => {
                         const value = row[column.id];
                         if (column.id === "name") {
                           return (

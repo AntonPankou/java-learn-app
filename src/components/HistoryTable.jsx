@@ -9,14 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { useRouteMatch } from "react-router-dom";
-
-const tableColumns = [
-  { id: "date", label: "Date" },
-  { id: "user", label: "User" },
-  { id: "action", label: "Action" },
-  { id: "description", label: "Description" },
-];
+import { HISTORY_TABLE_COLUMNS } from "../constants/tablesColumns";
 
 function HistoryTable(props) {
   const { history } = props;
@@ -26,7 +19,7 @@ function HistoryTable(props) {
       <Table>
         <TableHead>
           <TableRow>
-            {tableColumns.map((item) => {
+            {HISTORY_TABLE_COLUMNS.map((item) => {
               return (
                 <TableCell key={item.id} align="center">
                   <Typography variant="h6">{item.label}</Typography>
