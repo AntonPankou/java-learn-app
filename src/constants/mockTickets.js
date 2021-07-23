@@ -89,7 +89,7 @@ export const ALL_TICKETS = [
     name: "Ticket5",
     date: "2021-09-12",
     resolutionDate: "2021-08-30",
-    urgency: "medium",
+    urgency: "average",
     status: "draft",
     category: "workAndFacilities",
     ticketOwner: "Umberto Eco",

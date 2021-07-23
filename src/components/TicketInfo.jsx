@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CommentsTable from "./CommentsTable";
 import HistoryTable from "./HistoryTable";
 import TabPanel from "./TabPanel";
@@ -6,6 +7,8 @@ import TicketCreationPageWithRouter from "./TicketCreationPage";
 import { Link, Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 import { ALL_TICKETS } from "../constants/mockTickets";
+import { COMMENTS } from "../constants/mockComments";
+import { HISTORY } from "../constants/mockHistory";
 
 import {
   Button,
@@ -29,58 +32,6 @@ function a11yProps(index) {
   };
 }
 
-const comments = [
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Ella Fitzgerald",
-    comment: "Cry me a river",
-  },
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Sarah Vaughn",
-    comment: "DJ Eban",
-  },
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Aretha Franklin",
-    comment: `I'm about to give you all of my money
-    And all I'm askin' in return, honey
-    Is to give me my propers when you get home`,
-  },
-];
-
-const history = [
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Miles Davis",
-    action: "Played on trumpet",
-    description: "So what",
-  },
-  {
-    date: new Date().toLocaleDateString(),
-    user: "John Coltrain",
-    action: "Played on saxophone",
-    description: "Flamenco sketch",
-  },
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Bill Evans",
-    action: "Played on piano",
-    description: `Ah, distinctly I remember it was in the bleak December;
-      And each separate dying ember wrought its ghost upon the floor.
-          Eagerly I wished the morrow;—vainly I had sought to borrow
-          From my books surcease of sorrow—sorrow for the lost Lenore—
-      For the rare and radiant maiden whom the angels name Lenore—
-                  Nameless here for evermore.`,
-  },
-  {
-    date: new Date().toLocaleDateString(),
-    user: "Cannonball Adderley",
-    action: "Played on saxosphone",
-    description: "..",
-  },
-];
-
 class TicketInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -88,8 +39,8 @@ class TicketInfo extends React.Component {
     this.state = {
       commentValue: "",
       tabValue: 0,
-      ticketComments: comments,
-      ticketHistory: history,
+      ticketComments: COMMENTS,
+      ticketHistory: HISTORY,
       currentUser: {
         name: "Dave Brubeck",
         id: 4242,
@@ -112,6 +63,8 @@ class TicketInfo extends React.Component {
   }
 
   componentDidMount() {
+    // get required ticket by id
+
     const { ticketId } = this.props.match.params;
     const ticket = ALL_TICKETS.find((item) => item.id === +ticketId);
     this.setState({
@@ -143,6 +96,8 @@ class TicketInfo extends React.Component {
   };
 
   addComment = () => {
+    // put request for comment creation here
+
     const newComment = {
       date: new Date().toLocaleDateString(),
       user: this.state.currentUser.name,
@@ -183,7 +138,7 @@ class TicketInfo extends React.Component {
       attachment,
       description,
     } = this.state.ticketData;
-    console.log(resolutionDate);
+
     const { commentValue, tabValue, ticketComments, ticketHistory } =
       this.state;
 
@@ -410,6 +365,10 @@ class TicketInfo extends React.Component {
     );
   }
 }
+
+TicketInfo.propTypes = {
+  match: PropTypes.object,
+};
 
 const TicketInfoWithRouter = withRouter(TicketInfo);
 export default TicketInfoWithRouter;

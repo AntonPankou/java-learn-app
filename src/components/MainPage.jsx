@@ -1,12 +1,11 @@
 import React from "react";
 import TabPanel from "./TabPanel";
 import TicketsTable from "./TicketsTable";
-import { AppBar, Button, Tab, Tabs, TextField } from "@material-ui/core";
+import { AppBar, Button, Tab, Tabs } from "@material-ui/core";
 import { Link, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import TicketInfoWithRouter from "./TicketInfo";
 import { ALL_TICKETS, MY_TICKETS } from "../constants/mockTickets";
-import TicketCreationPageWithRouter from "./TicketCreationPage";
 
 function a11yProps(index) {
   return {
@@ -27,23 +26,52 @@ class MainPage extends React.Component {
     };
   }
 
-  handleCreate = () => {
-    console.log("Create ticket");
-  };
+  componentDidMount() {
+    // put requests for tickets here
+  }  
 
   handleLogout = () => {
+    // put logout logic here
     console.log("Logout");
   };
 
   handleTabChange = (event, value) => {
     this.setState({
       tabValue: value,
+      filteredTickets: []
     });
+  };
+
+  handleSearchTicket = (event) => {
+    // put search request here
+
+    const { tabValue, myTickets, allTickets } = this.state;
+
+    if (tabValue === 0) {
+      const filteredTickets = myTickets.filter((ticket) =>
+        ticket.name.includes(event.target.value.toLowerCase())
+      );
+
+      this.setState({
+        filteredTickets,
+      });
+    }
+
+    if (tabValue === 1) {
+      const filteredTickets = allTickets.filter((ticket) =>
+        ticket.name.includes(event.target.value.toLowerCase())
+      );
+
+      this.setState({
+        filteredTickets,
+      });
+    }
   };
 
   render() {
     const { allTickets, filteredTickets, myTickets, tabValue } = this.state;
     const { path } = this.props.match;
+    const { handleSearchTicket } = this;
 
     return (
       <>
@@ -69,21 +97,6 @@ class MainPage extends React.Component {
                 Logout
               </Button>
             </div>
-            {/* <div>
-              <TextField
-                id="filled-full-width"
-                label="Label"
-                style={{ margin: 8 }}
-                placeholder="Placeholder"
-                helperText="Full width!"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-              />
-            </div> */}
             <div className="table-container">
               <AppBar position="static">
                 <Tabs
@@ -96,13 +109,19 @@ class MainPage extends React.Component {
                 </Tabs>
                 <TabPanel value={tabValue} index={0}>
                   <TicketsTable
+                    searchCallback={handleSearchTicket}
                     tickets={
                       filteredTickets.length ? filteredTickets : myTickets
                     }
                   />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                  <TicketsTable tickets={allTickets} />
+                  <TicketsTable
+                    searchCallback={handleSearchTicket}
+                    tickets={
+                      filteredTickets.length ? filteredTickets : allTickets
+                    }
+                  />
                 </TabPanel>
               </AppBar>
             </div>

@@ -1,15 +1,13 @@
 import React from "react";
 import { Button, TextField, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
-export class LoginPage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       nameValue: "",
       passwordValue: "",
-      isLoggedIn: false,
     };
   }
 
@@ -21,17 +19,12 @@ export class LoginPage extends React.Component {
     this.setState({ passwordValue: event.target.value });
   };
 
-  handleSubmitClick = (event) => {
-    this.setState({ isLoggedIn: true });
-  };
-
   handleClickAuth = () => {
+    // put authorization logic here
     this.props.authCallback(true);
   }
   
   render() {
-    console.log(this.props);
-    
     return (
       <div className="container">
         <div className="container__title-wrapper">
@@ -64,8 +57,6 @@ export class LoginPage extends React.Component {
         </div>
         <div className="container__button-wrapper">
           <Button
-            /* component={Link}
-            to="/main-page" */
             size="large"
             variant="contained"
             color="primary"
@@ -77,4 +68,6 @@ export class LoginPage extends React.Component {
       </div>
     );
   }
-}
+};
+
+export default LoginPage;

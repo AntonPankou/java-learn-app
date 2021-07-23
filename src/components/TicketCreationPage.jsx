@@ -11,6 +11,7 @@ import {
 import { Link, withRouter } from "react-router-dom";
 import { ALL_TICKETS } from "../constants/mockTickets";
 import { CATEGORIES_OPTIONS, URGENCY_OPTIONS  } from "../constants/inputsValues";
+
 class TicketCreationPage extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +28,8 @@ class TicketCreationPage extends React.Component {
   }
 
   componentDidMount() {
+    // set request for getting ticket in draft state
+
     const ticketFromUrl = this.props.location.pathname.split("/");
     const ticketId = ticketFromUrl[ticketFromUrl.length - 1];
     const ticketData = ALL_TICKETS.find((item) => item.id === +ticketId);
@@ -86,10 +89,12 @@ class TicketCreationPage extends React.Component {
   };
 
   handleSaveDraft = () => {
+    // put change of status to draft here
     console.log("Save as draft");
   };
 
   handleSubmitTicket = () => {
+    // put submit logic here
     console.log("Submit");
   };
 
@@ -103,8 +108,6 @@ class TicketCreationPage extends React.Component {
       resolutionDateValue,
       urgencyValue,
     } = this.state;
-
-    console.log("props from render", this.props);
 
     return (
       <div className="ticket-creation-form-container">

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   ButtonGroup,
   Button,
@@ -45,7 +46,7 @@ class TicketsTable extends React.Component {
   };
 
   render() {
-    const { tickets } = this.props;
+    const { searchCallback, tickets } = this.props;
     const { page, rowsPerPage } = this.state;
     const { url } = this.props.match;
     const {
@@ -58,6 +59,17 @@ class TicketsTable extends React.Component {
     return (
       <Paper>
         <TableContainer>
+          <TextField
+            onChange={searchCallback}
+            id="filled-full-width"
+            label="Search"
+            style={{ margin: 5, width: "500px" }}
+            placeholder="Search for ticket"
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
           <Table>
             <TableHead>
               <TableRow>
@@ -66,17 +78,6 @@ class TicketsTable extends React.Component {
                     <b>{column.label}</b>
                   </TableCell>
                 ))}
-              </TableRow>
-              <TableRow>
-                <TextField
-                  label="Search"
-                  style={{ margin: 5 }}
-                  placeholder="Search ticket"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -140,6 +141,11 @@ class TicketsTable extends React.Component {
     );
   }
 }
+
+TicketsTable.propTypes = {
+  searchCallback: PropTypes.func,
+  tickets: PropTypes.array,
+};
 
 const TicketsTableWithRouter = withRouter(TicketsTable);
 export default TicketsTableWithRouter;

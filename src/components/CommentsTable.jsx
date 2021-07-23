@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Paper,
   Table,
@@ -43,5 +44,9 @@ function CommentsTable(props) {
     </TableContainer>
   );
 }
+
+CommentsTable.propTypes = {
+  name: PropTypes.array,
+};
 
 export default CommentsTable;

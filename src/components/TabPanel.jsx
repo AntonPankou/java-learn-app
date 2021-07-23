@@ -1,8 +1,9 @@
 import { Box, Typography } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -21,5 +22,11 @@ function TabPanel(props) {
     </div>
   );
 }
+
+TabPanel.propTypes = {
+  value: PropTypes.number,
+  index: PropTypes.number,
+  children: PropTypes.object,
+};
 
 export default TabPanel;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Paper,
   Table,
@@ -44,5 +45,9 @@ function HistoryTable(props) {
     </TableContainer>
   );
 }
+
+HistoryTable.propTypes = {
+  name: PropTypes.array,
+};
 
 export default HistoryTable;

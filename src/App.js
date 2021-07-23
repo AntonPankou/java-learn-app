@@ -1,5 +1,5 @@
 import "./App.css";
-import { LoginPage } from "./components/LoginPage";
+import LoginPage from "./components/LoginPage";
 import MainPageWithRouter from "./components/MainPage";
 import TicketInfo from "./components/TicketInfo";
 import TicketCreationPageWithRouter from "./components/TicketCreationPage";
@@ -14,7 +14,7 @@ import { useState } from "react";
 
 function App() {
   const [isAuthorized, setAuth] = useState(false);
-  
+
   return (
     <Router>
       <Switch>
