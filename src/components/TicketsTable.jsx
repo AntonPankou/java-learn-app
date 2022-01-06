@@ -17,8 +17,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { TICKETS_TABLE_COLUMNS } from '../constants/tablesColumns';
 
-function TicketsTable(props) {
-  
+function TicketsTable(props) {  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
